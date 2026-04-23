@@ -24,7 +24,7 @@ function Form({ recommendationHook }) {
 
   return (
     <form
-      className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-md"
+      className="max-w-md mx-auto p-4 bg-[#262626] rounded-lg shadow-md"
       onSubmit={handleSubmit}
     >
       <Preferences

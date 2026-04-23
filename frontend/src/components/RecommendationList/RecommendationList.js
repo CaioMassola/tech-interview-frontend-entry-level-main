@@ -4,7 +4,7 @@ function RecommendationList({ recommendationHook }) {
   const { recommendations } = recommendationHook;
 
   return (
-    <div>
+    <div className='max-w-md mx-auto p-4 bg-[#262626] rounded-lg shadow-md'>
       <h2 className="text-lg font-bold mb-4">Lista de Recomendações:</h2>
       {recommendations.length === 0 && <p>Nenhuma recomendação encontrada.</p>}
       <ul>
