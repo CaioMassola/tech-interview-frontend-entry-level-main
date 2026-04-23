@@ -1,7 +1,18 @@
 import React from 'react';
+import { SubmitButton } from '../Form/SubmitButton';
 
-function RecommendationList({ recommendationHook }) {
-  const { recommendations } = recommendationHook;
+function RecommendationList({ recommendationHook, productsHook, formHook }) {
+  const { recommendations, setRecommendations } = recommendationHook;
+  const { setPreferences, setFeatures } = productsHook;
+  const { resetForm } = formHook;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setRecommendations([]);
+    setPreferences([]);
+    setFeatures([]);
+    resetForm();
+  };
 
   return (
     <div className='max-w-md mx-auto p-4 bg-[#262626] rounded-lg shadow-md'>
@@ -14,6 +25,10 @@ function RecommendationList({ recommendationHook }) {
           </li>
         ))}
       </ul>
+
+      <form onSubmit={handleSubmit} className='mt-10'>
+        <SubmitButton text="Limpar Recomendações" disabled={!recommendations.length} />
+      </form>
     </div>
   );
 }

@@ -3,10 +3,16 @@ import Form from './components/Form/Form';
 import RecommendationList from './components/RecommendationList/RecommendationList';
 import useProducts from './hooks/useProducts';
 import useRecommendations from './hooks/useRecommendations';
+import useForm from './hooks/useForm';
 
 function App() {
-  const { products } = useProducts();
-  const recommendationHook = useRecommendations(products);
+  const productsHook = useProducts();
+  const recommendationHook = useRecommendations(productsHook.products);
+  const formHook = useForm({
+    selectedPreferences: [],
+    selectedFeatures: [],
+    selectedRecommendationType: 'SingleProduct',
+  });
 
   return (
     <div className="bg-[#212121] min-h-screen flex flex-col justify-center items-center">
@@ -21,10 +27,10 @@ function App() {
           </p>
         </div>
         <div className="order-1 md:order-none">
-          <Form recommendationHook={recommendationHook} />
+          <Form recommendationHook={recommendationHook} formHook={formHook}/>
         </div>
         <div className="order-2 md:order-none">
-          <RecommendationList recommendationHook={recommendationHook} />
+          <RecommendationList recommendationHook={recommendationHook} productsHook={productsHook} formHook={formHook}/>
         </div>
       </div>
     </div>

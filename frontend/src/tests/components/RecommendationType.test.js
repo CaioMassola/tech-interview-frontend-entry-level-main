@@ -4,9 +4,15 @@ import RecommendationType from '../../components/Form/Fields/RecommendationType'
 
 jest.mock('../../components/shared/Checkbox', () => ({
   __esModule: true,
-  default: ({ children, onChange, value, type, ...props }) => (
+  default: ({ children, onChange, value, type, checked, ...props }) => (
     <label>
-      <input type={type} value={value} onChange={onChange} {...props} />
+      <input
+        type={type}
+        value={value}
+        checked={checked}
+        onChange={onChange}
+        {...props}
+      />
       {children}
     </label>
   ),
@@ -20,29 +26,53 @@ describe('RecommendationType', () => {
   });
 
   it('deve renderizar os tipos de recomendação', () => {
-    render(<RecommendationType onRecommendationTypeChange={mockOnChange} />);
+    render(
+      <RecommendationType
+        selectedRecommendationType="SingleProduct"
+        onRecommendationTypeChange={mockOnChange}
+      />
+    );
 
     expect(screen.getByText('Produto Único')).toBeInTheDocument();
     expect(screen.getByText('Múltiplos Produtos')).toBeInTheDocument();
     expect(screen.getByText('Tipo de Recomendação:')).toBeInTheDocument();
   });
 
-  it('deve ter SingleProduct como padrão selecionado', () => {
-    render(<RecommendationType onRecommendationTypeChange={mockOnChange} />);
+  it('deve ter SingleProduct como selecionado', () => {
+    render(
+      <RecommendationType
+        selectedRecommendationType="SingleProduct"
+        onRecommendationTypeChange={mockOnChange}
+      />
+    );
 
     const single = screen.getByDisplayValue('SingleProduct');
     expect(single).toBeChecked();
   });
 
-  it('deve chamar callback ao selecionar MultipleProducts e depois o SingleProduct', () => {
-    render(<RecommendationType onRecommendationTypeChange={mockOnChange} />);
+  it('deve chamar callback ao selecionar MultipleProducts e depois SingleProduct', () => {
+    const { rerender } = render(
+      <RecommendationType
+        selectedRecommendationType="SingleProduct"
+        onRecommendationTypeChange={mockOnChange}
+      />
+    );
 
-    fireEvent.click(screen.getByDisplayValue('MultipleProducts'));
+    const multiple = screen.getByDisplayValue('MultipleProducts');
 
+    fireEvent.click(multiple);
     expect(mockOnChange).toHaveBeenCalledWith('MultipleProducts');
 
-    fireEvent.click(screen.getByDisplayValue('SingleProduct'));
+    rerender(
+      <RecommendationType
+        selectedRecommendationType="MultipleProducts"
+        onRecommendationTypeChange={mockOnChange}
+      />
+    );
 
+    const single = screen.getByDisplayValue('SingleProduct');
+
+    fireEvent.click(single);
     expect(mockOnChange).toHaveBeenCalledWith('SingleProduct');
   });
 });

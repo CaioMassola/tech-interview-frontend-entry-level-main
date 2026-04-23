@@ -37,7 +37,7 @@ const useProducts = () => {
     fetchData();
   }, []);
 
-  return { preferences, features, products };
+  return { preferences, features, products, setFeatures, setPreferences };
 };
 
 export default useProducts;

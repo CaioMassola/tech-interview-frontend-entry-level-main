@@ -101,6 +101,13 @@ O sistema de recomendação deve:
 cd frontend
 yarn test
 ```
+---
+
+### Funcionalidade Adicional
+
+* Botão de limpar preferências
+
+---
 
 ## 📈 Futuras Melhorias
 
