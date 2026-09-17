@@ -1,8 +1,6 @@
-# RD Station - Recomendador de Produtos
+# Recomendador de Produtos
 
 ## 📌 Sobre o Projeto
-
-Este projeto foi desenvolvido como parte do processo seletivo da RD Station para a vaga de Engenhario de Software Frontend Pleno - React
 
 O objetivo principal é implementar um sistema de recomendação de produtos dentro de uma aplicação React.js, permitindo que o usuário selecione preferências e receba sugestões de produtos de forma dinâmica.
 
